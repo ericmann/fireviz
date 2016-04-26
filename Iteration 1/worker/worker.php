@@ -31,11 +31,11 @@ $process = function( AMQPMessage $message ) {
 		'location'  => $body['location'],
 		'sentiment' => strtolower( $decoded['result']['sentiment'] ),
 	];
-	
+
 	$outgoing = new GuzzleHttp\Client();
 	$outgoing->request(
 		'POST',
-		'',
+		'http://browser:3000',
 		[
 			'body' => json_encode( $data ),
 		]
