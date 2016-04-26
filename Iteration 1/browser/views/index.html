@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Twitter Firehose Visualization</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+    <script type="text/javascript" src="maps.js"></script>
+</head>
+<body>
+<noscript>
+    <span class="no_js_error">Sorry, This site requires JavaScript.</span>
+</noscript>
+<div id="sparklemattic-legend">
+    <ul id="legend-wpcom">
+        <li><span class="sparkle-marker positive"></span> Positive </li>
+        <li><span class="sparkle-marker neutral"></span> Neutral </li>
+        <li><span class="sparkle-marker negative"></span> Negative </li>
+    </ul>
+</div>
+<div id="map_canvas"></div>
+<script type="text/javascript">
+    jQuery(document).ready( function() {
+        //console.log('document > ready');
+        initialize();
+        drawThread( 4, 100 );
+        openSocket();
+    } );
+</script>
+</body>
+</html>

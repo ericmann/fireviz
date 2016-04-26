@@ -26,6 +26,7 @@ $process = function( AMQPMessage $message ) {
 	$response_body = $response->getBody()->getContents();
 	$decoded = json_decode( $response_body, true );
 
+	// @TODO send websocket ping to Node app
 	echo strtolower( $decoded['result']['sentiment'] ) . ' : ' . $body['location'];
 };
 

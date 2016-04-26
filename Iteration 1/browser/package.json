@@ -1,0 +1,12 @@
+{
+  "name": "fireviz-browser",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Experimental Twitter sentiment visualization",
+  "author": "Eric Mann <eric@eamann.com>",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.0.0",
+    "express-ws": "^1.0.0"
+  }
+}

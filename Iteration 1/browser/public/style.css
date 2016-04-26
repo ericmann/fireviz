@@ -1,0 +1,110 @@
+html {
+    height: 100%
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0
+}
+
+#map_canvas {
+    height: 100%;
+}
+
+#menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    height: 50px;
+    background-color: white;
+}
+
+.sparkle-marker {
+    border-radius: 50%;
+    border: 1px #fff solid !important;
+    box-shadow: 0 0 5px #fff;
+    background-color: #fff;
+}
+
+.sparkle-marker.positive {
+    box-shadow: 0 0 5px #2eff2e;
+    background-color: #2eff2e;
+    border: 1px #2eff2e solid !important;
+}
+
+.sparkle-marker.neutral {
+    box-shadow: 0 0 5px #aaa;
+    background: #aaa;
+    border: 1px #aaa solid !important;
+}
+
+.sparkle-marker.negative {
+    box-shadow: 0 0 5px red;
+    background: red;
+    border: 1px red solid !important;
+}
+
+.hidden {
+    opacity: 0;
+    -moz-transition-property: opacity;
+    -webkit-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -moz-transition-duration: 4s;
+    -webkit-transition-duration: 4s;
+    -o-transition-duration: 4s;
+    transition-duration: 4s;
+}
+
+.shown {
+    opacity: 1;
+    -moz-transition-duration: 500ms;
+    -webkit-transition-duration: 500ms;
+    -o-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+
+#map_canvas {
+    background: #1c405b !important;
+}
+
+#sparklemattic-legend {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 20px;
+    background: #1c4b5e;
+    background: rgba(12, 52, 79, .7);
+    color: #7fb4cf;
+    text-shadow: 0 -1px 0 #000;
+    z-index: 9999;
+    font-family: Helvetica, Arial, Sans-serif;
+    font-size: 12px;
+    width: 100px;
+}
+
+#sparklemattic-legend h3 {
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#sparklemattic-legend ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#sparklemattic-legend ul li {
+    margin: 10px;
+}
+
+#sparklemattic-legend .sparkle-marker {
+    width: 5px;
+    height: 5px;
+    display: block;
+    float: left;
+    margin: 3px 10px 0 0;
+}
