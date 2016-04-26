@@ -1,9 +1,19 @@
 version: '2'
 services:
   rabbitmq:
+    container_name: "rabbitmq"
     image: rabbitmq:3-management
     environment:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=pass
     ports:
       - "8000:15672"
+
+  front:
+    container_name: "front"
+    env_file: front-app/.env
+    build: ./front-app
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq
