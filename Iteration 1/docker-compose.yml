@@ -12,6 +12,7 @@ services:
   front:
     container_name: "front"
     env_file: front-app/.env
+    restart: always
     build: ./front-app
     depends_on:
       - rabbitmq

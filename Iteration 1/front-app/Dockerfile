@@ -1,4 +1,4 @@
-FROM php:7-zts-alpine
+FROM ericmann/php:7.0bcmath
 
 MAINTAINER eric@eamann.com
 

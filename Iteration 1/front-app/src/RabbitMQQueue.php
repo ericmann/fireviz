@@ -6,6 +6,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class RabbitMQQueue {
 
+	const EXCHANGE = 'tweet_exchange';
+	const QUEUE = 'tweets';
+
 	/**
 	 * @var $channel AMQPChannel
 	 */
@@ -16,15 +19,34 @@ class RabbitMQQueue {
 	 */
 	public $connection;
 
-	public function __construct() {
+	public function __construct() {}
+
+	/**
+	 * Open a connection
+	 *
+	 * @return bool
+	 */
+	protected function connect() {
 		try {
 			$this->connection = new AMQPStreamConnection( 'rabbitmq', 5672, 'user', 'pass' );
 			$this->channel = $this->connection->channel();
+			$this->channel->queue_declare( self::QUEUE, false, false, false, false );
+			$this->channel->exchange_declare( self::EXCHANGE, 'direct', false, false, false );
+			$this->channel->queue_bind( self::QUEUE, self::EXCHANGE );
 		} catch ( Exception $e ) {
 			echo "warning: " . $e->getMessage();
 			return false;
 		}
-		return false;
+
+		return true;
+	}
+
+	/**
+	 * Clean up the connection
+	 */
+	protected function disconnect() {
+		$this->channel && $this->channel->close();
+		$this->connection && $this->connection->close();
 	}
 
 	/**
@@ -39,26 +61,18 @@ class RabbitMQQueue {
 	/**
 	 * Send a message to the RabbitMQ queue
 	 *
-	 * @param array $message
-	 * @param string $routingKey
-	 * @param string $exchange
-	 *
-	 * @return bool
+	 * @param string $message
 	 */
-	public function sendMessage( array $message, string $routingKey, $exchange = 'critics' ) {
-		try {
-			if ( $this->channel && $this->connection ) {
-				$this->channel = $this->connection->channel();
+	public function sendMessage( string $message ) {
+		if ( $this->connect() ) {
+			try{
 				$msg = new AMQPMessage( $message );
-				$this->channel->basic_publish( $msg, $exchange, $routingKey );
+				$this->channel->basic_publish( $msg, self::EXCHANGE );
+			} catch( Exception $e ) {
 
-				$this->channel->close();
-				$this->connection->close();
+			} finally {
+				$this->disconnect();
 			}
-		} catch ( Exception $e ) {
-			echo "warning: " . $e->getMessage();
-			return false;
 		}
-		return false;
 	}
 }
