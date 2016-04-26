@@ -17,14 +17,16 @@ $process = function( AMQPMessage $message ) {
 		'POST',
 		'http://sentiment.vivekn.com/api/text/',
 		[
-			'txt' => $tweet
+			'form_params' => [
+				'txt' => $tweet,
+			],
 		]
 	);
 
-	$response_body = $response->getBody();
+	$response_body = $response->getBody()->getContents();
 	$decoded = json_decode( $response_body, true );
 
-	echo strtolower( $decoded['sentiment'] ) . ' : ' . $body['location'];
+	echo strtolower( $decoded['result']['sentiment'] ) . ' : ' . $body['location'];
 };
 
 // Start main engines
