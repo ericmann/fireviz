@@ -18,3 +18,21 @@ services:
       - rabbitmq
     links:
       - rabbitmq
+
+  worker1:
+    container_name: "worker1"
+    restart: always
+    build: ./worker
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq
+
+  worker2:
+    container_name: "worker2"
+    restart: always
+    build: ./worker
+    depends_on:
+      - rabbitmq
+    links:
+      - rabbitmq
