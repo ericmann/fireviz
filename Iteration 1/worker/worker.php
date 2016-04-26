@@ -26,7 +26,21 @@ $process = function( AMQPMessage $message ) {
 	$response_body = $response->getBody()->getContents();
 	$decoded = json_decode( $response_body, true );
 
-	// @TODO send websocket ping to Node app
+	// Set up our data object for the visualization
+	$data = [
+		'location'  => $body['location'],
+		'sentiment' => strtolower( $decoded['result']['sentiment'] ),
+	];
+	
+	$outgoing = new GuzzleHttp\Client();
+	$outgoing->request(
+		'POST',
+		'',
+		[
+			'body' => json_encode( $data ),
+		]
+	);
+
 	echo strtolower( $decoded['result']['sentiment'] ) . ' : ' . $body['location'];
 };
 

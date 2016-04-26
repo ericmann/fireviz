@@ -23,14 +23,14 @@ app.ws( '/sub', function( ws, req ) {
 } );
 
 /**
- * Pass any piped WS data through to subscribed WS listeners
+ * Pass any POSTED WS data through to subscribed WS listeners
  */
-app.ws( '/pipe', function( ws, req ) {
-	ws.on( 'message', function( message ) {
-		expressWs.getWss( '/sub' ).clients.forEach( function( client ) {
-			client.send( message );
-		} );
+app.post( '/pipe', function( req, res ) {
+	expressWs.getWss( '/sub' ).clients.forEach( function( client ) {
+		client.send( req.body );
 	} );
+
+	res.close();
 } );
 
 /**
