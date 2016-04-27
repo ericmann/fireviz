@@ -19,7 +19,9 @@ class RabbitMQQueue {
 	 */
 	public $connection;
 
-	public function __construct() {}
+	public function __construct() {
+		$this->connect();
+	}
 
 	/**
 	 * Open a connection
@@ -64,15 +66,15 @@ class RabbitMQQueue {
 	 * @param string $message
 	 */
 	public function sendMessage( string $message ) {
-		if ( $this->connect() ) {
-			try{
-				$msg = new AMQPMessage( $message );
-				$this->channel->basic_publish( $msg, self::EXCHANGE );
-			} catch( Exception $e ) {
+		if ( ! $this->connection->isConnected() ) {
+			$this->connect();
+		}
 
-			} finally {
-				$this->disconnect();
-			}
+		try {
+			$msg = new AMQPMessage( $message );
+			$this->channel->basic_publish( $msg, self::EXCHANGE );
+		} catch ( Exception $e ) {
+
 		}
 	}
 }

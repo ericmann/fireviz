@@ -19,7 +19,9 @@ class RabbitMQQueue {
 	 */
 	public $connection;
 
-	public function __construct() {}
+	public function __construct() {
+		$this->connect();
+	}
 
 	/**
 	 * Open a connection
@@ -64,13 +66,13 @@ class RabbitMQQueue {
 	 * @param callable $processor
 	 */
 	public function processQueue( callable $processor ) {
-		if ( $this->connect() ) {
-			$this->channel->basic_consume( self::QUEUE, '', false, false, false, false, $processor );
-			while( count( $this->channel->callbacks ) ) {
-				$this->channel->wait();
-			}
+		if ( ! $this->connection->isConnected() ) {
+			$this->connect();
+		}
 
-			$this->disconnect();
+		$this->channel->basic_consume( self::QUEUE, '', false, false, false, false, $processor );
+		while ( count( $this->channel->callbacks ) ) {
+			$this->channel->wait();
 		}
 	}
 }
