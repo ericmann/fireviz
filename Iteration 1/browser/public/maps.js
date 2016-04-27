@@ -171,7 +171,7 @@ function refreshDataOnTheScreen() {
 			queue.push( currentMarker );
 		}
 	}
-	refreshTimerID = setTimeout( "refreshDataOnTheScreen()", 2000 );
+	refreshTimerID = setTimeout( "refreshDataOnTheScreen()", 250 );
 }
 function quantize_coordinate( coord, granularity ) {
 	return granularity * Math.round( coord / granularity );
