@@ -9,5 +9,5 @@ define( 'TWITTER_CONSUMER_SECRET', getenv( 'TWITTER_CONSUMER_SECRET' ) );
 define( 'OAUTH_TOKEN', getenv( 'OAUTH_TOKEN' ) );
 define( 'OAUTH_SECRET',  getenv( 'OAUTH_SECRET' ) );
 
-$sc = new FirehoseConsumer( OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_SAMPLE );
+$sc = new FirehoseConsumer( OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_FIREHOSE );
 $sc->consume();

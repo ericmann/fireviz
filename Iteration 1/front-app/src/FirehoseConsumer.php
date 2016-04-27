@@ -16,7 +16,7 @@ class FirehoseConsumer extends OauthPhirehose {
 		$data = json_decode( $status, true );
 		if ( is_array( $data ) && isset( $data[ 'text' ] ) ) {
 			// I only care about English for now ...
-			if ( 'en' !== $data['lang'] ) {
+			if ( 'en' !== $data['lang'] || null == $data['user']['location'] ) {
 				return;
 			}
 
