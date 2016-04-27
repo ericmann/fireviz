@@ -16,13 +16,13 @@ class FirehoseConsumer extends OauthPhirehose {
 		$data = json_decode( $status, true );
 		if ( is_array( $data ) && isset( $data[ 'text' ] ) ) {
 			// I only care about English for now ...
-			if ( 'en' !== $data['lang'] || null == $data['user']['location'] ) {
+			if ( 'en' !== $data['lang'] || null == $data['place'] ) {
 				return;
 			}
 
 			$body = [
 				"message" => $data['text'],
-				"location" => $data['user']['location'],
+				"location" => $data['place']['full_name'],
 				"hashtags" => $data['entities']['hashtags'],
 			];
 
