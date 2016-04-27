@@ -6,7 +6,6 @@ var current_data = 'geowpcom';
 var request = null;
 var is_ajax_running = false;
 var is_css3_transition_supported = false;
-var connection = false;
 function isCSS3TransitionSupported() {
 	var s = document.documentElement.style;
 	return (typeof(s.WebkitTransition) == 'string' || typeof(s.MozTransition) == 'string' || typeof(s.OTransition) == 'string' || typeof(s.transition) == 'string');
@@ -153,7 +152,7 @@ function handlePush( event ) {
 	});
 }
 function openSocket() {
-	connection = new WebSocket( 'ws://' + window.location.hostname + ':' + window.location.port + '/sub' );
+	var connection = new WebSocket( 'ws://' + window.location.hostname + ':' + window.location.port + '/sub' );
 	connection.onmessage = handlePush;
 	connection.onerror = function() {
 		connection.close();
