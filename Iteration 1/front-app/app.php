@@ -9,6 +9,9 @@ define( 'TWITTER_CONSUMER_SECRET', getenv( 'TWITTER_CONSUMER_SECRET' ) );
 define( 'OAUTH_TOKEN', getenv( 'OAUTH_TOKEN' ) );
 define( 'OAUTH_SECRET',  getenv( 'OAUTH_SECRET' ) );
 
-$sc = new FirehoseConsumer( OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_SAMPLE );
+$sc = new FirehoseConsumer( OAUTH_TOKEN, OAUTH_SECRET, Phirehose::METHOD_FILTER );
 $sc->setLang( 'en' );
+$sc->setLocations( [
+	[-172.75,36.8,-73,69]
+] );
 $sc->consume();
