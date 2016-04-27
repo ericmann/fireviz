@@ -22,7 +22,7 @@ class FirehoseConsumer extends OauthPhirehose {
 
 			$body = [
 				"message" => $data['text'],
-				"location" => $data['location'],
+				"location" => $data['user']['location'],
 				"hashtags" => $data['entities']['hashtags'],
 			];
 

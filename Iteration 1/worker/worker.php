@@ -26,18 +26,15 @@ $process = function( AMQPMessage $message ) {
 	$response_body = $response->getBody()->getContents();
 	$decoded = json_decode( $response_body, true );
 
-	// Set up our data object for the visualization
-	$data = [
-		'location'  => $body['location'],
-		'sentiment' => strtolower( $decoded['result']['sentiment'] ),
-	];
-
 	$outgoing = new GuzzleHttp\Client();
 	$outgoing->request(
 		'POST',
-		'http://browser:3000',
+		'http://browser:3000/pipe',
 		[
-			'body' => json_encode( $data ),
+			'json' => [
+				'location'  => $body['location'],
+				'sentiment' => strtolower( $decoded['result']['sentiment'] ),
+			]
 		]
 	);
 

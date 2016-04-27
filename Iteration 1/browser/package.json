@@ -5,6 +5,7 @@
   "description": "Experimental Twitter sentiment visualization",
   "author": "Eric Mann <eric@eamann.com>",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "ejs": "^2.4.1",
     "express": "^4.0.0",
     "express-ws": "^1.0.0"

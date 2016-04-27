@@ -1,9 +1,11 @@
 var express = require( 'express' );
+var bodyParser = require( 'body-parser' );
 
 var app = express();
 var expressWs = require( 'express-ws' )( app );
 
 app.use( express.static( 'public' ) );
+app.use( bodyParser.json() );
 
 app.set( 'views', __dirname + '/views' );
 app.engine( 'html', require( 'ejs' ).renderFile );
@@ -21,16 +23,17 @@ app.get( '/', function ( req, res ) {
 app.ws( '/sub', function( ws, req ) {
 
 } );
+var subscribers = expressWs.getWss( '/sub' );
 
 /**
  * Pass any POSTED WS data through to subscribed WS listeners
  */
 app.post( '/pipe', function( req, res ) {
-	expressWs.getWss( '/sub' ).clients.forEach( function( client ) {
-		client.send( req.body );
+	subscribers.clients.forEach( function( client ) {
+		client.send( JSON.stringify( req.body ) );
 	} );
 
-	res.close();
+	res.end();
 } );
 
 /**

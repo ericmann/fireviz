@@ -128,6 +128,10 @@ function deleteOverlays() {
 	}
 }
 function handlePush( event ) {
+	if ( '' == event.data  ) {
+		return;
+	}
+
 	// Decode message
 	var message = JSON.parse( event.data );
 	var geocoder =  new google.maps.Geocoder();
