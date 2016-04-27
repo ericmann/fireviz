@@ -171,7 +171,7 @@ function refreshDataOnTheScreen() {
 			queue.push( currentMarker );
 		}
 	}
-	refreshTimerID = setTimeout( "refreshDataOnTheScreen()", 250 );
+	refreshTimerID = setTimeout( "refreshDataOnTheScreen()", 30 );
 }
 function quantize_coordinate( coord, granularity ) {
 	return granularity * Math.round( coord / granularity );
@@ -211,24 +211,8 @@ function drawThread( limit, delay ) {
 		} else {
 			grid[qx][qy] += parseInt( point.size ) + 1;
 		}
-		var local_intensity = grid[qx][qy] - e;
-		if ( point.type == 'ham' ) {
-			var size = 1 + point.size;
-		} else {
-			var size = 1 + Math.ceil( 1.1 * (1 + Math.log( local_intensity )) );
-		}
-		var redrawn = false;
-		for ( m in markersArray ) {
-			distance = google.maps.geometry.spherical.computeDistanceBetween( pos, markersArray[m].getPosition() );
-			if ( distance < 100000 ) {
-				markersArray[m].reDraw( size, point.type );
-				redrawn = true;
-				break;
-			}
-		}
-		if ( ! redrawn ) {
-			addMarker( new google.maps.LatLng( point.lat, point['long'], true ), size, point.type );
-		}
+		var size = 1 + point.size;
+		addMarker( new google.maps.LatLng( point.lat, point['long'], true ), size, point.type );
 	}
 	window.setTimeout( function () {
 		drawThread( limit, delay );
