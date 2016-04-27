@@ -24,11 +24,16 @@ app.ws( '/sub', function( ws, req ) {
 
 } );
 
+var clients = [];
+setInterval( function() {
+	clients = expressWs.getWss( '/sub' ).clients;
+}, 5000 );
+
 /**
  * Pass any POSTED WS data through to subscribed WS listeners
  */
 app.post( '/pipe', function( req, res ) {
-	expressWs.getWss( '/sub' ).clients.forEach( function( client ) {
+	clients.forEach( function( client ) {
 		client.send( JSON.stringify( req.body ) );
 	} );
 
